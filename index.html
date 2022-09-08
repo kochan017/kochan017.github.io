@@ -3,9 +3,18 @@
     <h1> Hello World </h1>
     <h2> This is Sunny </h2>
     <p> Welcome to my personal website (beta) </p>
-
+    <p> $VLC_URL = "https://download.videolan.org/vlc/last/win64/" <p>
+    <p> $GET_HTML = Invoke-WebRequest $VLC_URL <p>
+    <p> $FILE = $GET_HTML.Links | Select-Object @{Label='href';Expression={@{$true=$_.href}[$_.href.EndsWith('win64.exe')]}} | Select-Object -ExpandProperty href <p>
+    <p> $URL = ($VLC_URL+$FILE) <p>
+    <p> $DOWNLOAD_DIR = "C:\users\qwiklabs\Downloads\" <p>
+    <p> $OUTPUT_FILE = ($DOWNLOAD_DIR+$FILE) <p>
+    <p> (new-object System.Net.WebClient).DownloadFile($URL, $OUTPUT_FILE) <p>
+    <p> cmd.exe /c $OUTPUT_FILE /S <p>
+    
     <ul>
       <li> <a href="https://google.com"> get to know more about me. </a> </li>
+      
     </ul>
   </body>
 </html>
